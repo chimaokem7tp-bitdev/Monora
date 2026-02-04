@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/Card'
@@ -33,9 +33,9 @@ export default function DesignSystemShowcase() {
   return (
     <main className="bg-background text-foreground">
       {/* Header Section */}
-      <section className="section-lg bg-gradient-to-br from-primary/10 to-secondary/10 border-b border-border">
+      <section className="py-20 px-4 md:px-6 bg-gradient-to-br from-primary/10 to-secondary/10 border-b border-border">
         <Container>
-          <div className="flex-col-center gap-4 text-center">
+          <div className="flex flex-col items-center justify-center gap-4 text-center">
             <h1>Design System Showcase</h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
               A comprehensive, tech-forward design system with customizable components, semantic tokens, and a modern aesthetic.
@@ -49,7 +49,7 @@ export default function DesignSystemShowcase() {
       </section>
 
       {/* Color System Section */}
-      <section className="section">
+      <section className="py-12 px-4 md:px-6">
         <Container>
           <div className="space-y-8">
             <div>
@@ -57,7 +57,7 @@ export default function DesignSystemShowcase() {
               <p className="text-muted-foreground mb-6">Tech-forward palette with semantic meaning</p>
             </div>
 
-            <div className="grid-3">
+            <Grid cols={3}>
               {/* Primary Color */}
               <Card>
                 <div className="space-y-4">
@@ -97,7 +97,7 @@ export default function DesignSystemShowcase() {
               {/* Success Color */}
               <Card>
                 <div className="space-y-4">
-                  <div className="h-24 rounded-md bg-success"></div>
+                  <div className="h-24 rounded-md bg-green-500"></div>
                   <div>
                     <h4>Success</h4>
                     <p className="text-sm text-muted-foreground">hsl(142 71% 45%)</p>
@@ -109,7 +109,7 @@ export default function DesignSystemShowcase() {
               {/* Warning Color */}
               <Card>
                 <div className="space-y-4">
-                  <div className="h-24 rounded-md bg-warning"></div>
+                  <div className="h-24 rounded-md bg-amber-500"></div>
                   <div>
                     <h4>Warning</h4>
                     <p className="text-sm text-muted-foreground">hsl(38 92% 50%)</p>
@@ -121,7 +121,7 @@ export default function DesignSystemShowcase() {
               {/* Destructive Color */}
               <Card>
                 <div className="space-y-4">
-                  <div className="h-24 rounded-md bg-destructive"></div>
+                  <div className="h-24 rounded-md bg-red-600"></div>
                   <div>
                     <h4>Destructive</h4>
                     <p className="text-sm text-muted-foreground">hsl(0 84% 60%)</p>
@@ -129,13 +129,13 @@ export default function DesignSystemShowcase() {
                   </div>
                 </div>
               </Card>
-            </div>
+            </Grid>
           </div>
         </Container>
       </section>
 
       {/* Typography Section */}
-      <section className="section bg-muted/30">
+      <section className="py-12 px-4 md:px-6 bg-muted/30">
         <Container>
           <div className="space-y-8">
             <div>
@@ -172,7 +172,7 @@ export default function DesignSystemShowcase() {
                 </div>
               </Card>
 
-              <Card className="md:col-span-2">
+              <Card>
                 <div className="space-y-4">
                   <p>
                     Body text in base size (1rem) with relaxed line height for optimal readability. 
@@ -187,7 +187,7 @@ export default function DesignSystemShowcase() {
       </section>
 
       {/* Buttons Section */}
-      <section className="section">
+      <section className="py-12 px-4 md:px-6">
         <Container>
           <div className="space-y-8">
             <div>
@@ -239,7 +239,7 @@ export default function DesignSystemShowcase() {
       </section>
 
       {/* Forms Section */}
-      <section className="section bg-muted/30">
+      <section className="py-12 px-4 md:px-6 bg-muted/30">
         <Container>
           <div className="space-y-8">
             <div>
@@ -297,7 +297,7 @@ export default function DesignSystemShowcase() {
       </section>
 
       {/* Badges Section */}
-      <section className="section">
+      <section className="py-12 px-4 md:px-6">
         <Container>
           <div className="space-y-8">
             <div>
@@ -319,7 +319,7 @@ export default function DesignSystemShowcase() {
       </section>
 
       {/* Alerts Section */}
-      <section className="section bg-muted/30">
+      <section className="py-12 px-4 md:px-6 bg-muted/30">
         <Container>
           <div className="space-y-8">
             <div>
@@ -339,7 +339,7 @@ export default function DesignSystemShowcase() {
       </section>
 
       {/* Cards & Layout Section */}
-      <section className="section">
+      <section className="py-12 px-4 md:px-6">
         <Container>
           <div className="space-y-8">
             <div>
@@ -366,110 +366,8 @@ export default function DesignSystemShowcase() {
         </Container>
       </section>
 
-      {/* Utilities Section */}
-      <section className="section bg-muted/30">
-        <Container>
-          <div className="space-y-8">
-            <div>
-              <h2 className="mb-2">Spacing & Layout Utilities</h2>
-              <p className="text-muted-foreground mb-6">Helper classes for common patterns</p>
-            </div>
-
-            <Grid cols={2}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Flex Center</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex-center h-20 bg-muted rounded border-2 border-border">
-                    <span className="text-sm font-medium">Centered Content</span>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Flex Between</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex-between h-12 bg-muted rounded px-4 border-2 border-border">
-                    <span className="text-sm">Left</span>
-                    <span className="text-sm">Right</span>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Grid 3 Columns</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid-3 gap-2">
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} className="h-12 bg-primary/20 rounded flex-center text-xs font-medium">
-                        Col {i}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Shadow & Hover</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-20 bg-primary rounded flex-center text-sm font-medium text-primary-foreground hover-lift cursor-pointer">
-                    Hover me!
-                  </div>
-                </CardContent>
-              </Card>
-            </Grid>
-          </div>
-        </Container>
-      </section>
-
-      {/* Documentation Section */}
-      <section className="section">
-        <Container>
-          <Card className="bg-primary/5">
-            <CardHeader>
-              <CardTitle>Getting Started</CardTitle>
-              <CardDescription>How to use the design system</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <h4 className="mb-2">Import Components</h4>
-                <code className="block bg-card p-3 rounded border border-border text-sm overflow-x-auto">
-                  {`import Button from '@/components/Button'
-import { Card, CardHeader, CardTitle } from '@/components/Card'
-import Input from '@/components/Input'`}
-                </code>
-              </div>
-
-              <div>
-                <h4 className="mb-2">Use with Variants</h4>
-                <code className="block bg-card p-3 rounded border border-border text-sm overflow-x-auto">
-                  {`<Button variant="primary" size="md">
-  Click Me
-</Button>`}
-                </code>
-              </div>
-
-              <div>
-                <h4 className="mb-2">Available Utility Classes</h4>
-                <p className="text-sm text-muted-foreground mb-2">
-                  Use semantic Tailwind classes and custom utilities: flex-center, flex-between, grid-2, grid-3, 
-                  grid-4, section, container-max, hover-lift, focus-ring, and more.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </Container>
-      </section>
-
       {/* Footer */}
-      <section className="section-sm bg-muted/50 border-t border-border text-center">
+      <section className="py-6 px-4 md:px-6 bg-muted/50 border-t border-border text-center">
         <Container>
           <p className="text-sm text-muted-foreground">
             Design System v1.0 • Built with React, TypeScript, and Tailwind CSS
