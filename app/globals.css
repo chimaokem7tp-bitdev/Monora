@@ -3,19 +3,386 @@
 @tailwind utilities;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  @apply border-border;
 }
 
 html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #ffffff;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  @apply bg-background text-foreground;
+}
+
+/* ============================================================================
+   DESIGN TOKENS - Tech-Forward Color System
+   ============================================================================ */
+
+:root {
+  /* Light mode colors */
+  --color-background: 0 0% 100%;
+  --color-foreground: 220 13% 13%;
+  
+  --color-card: 0 0% 100%;
+  --color-card-foreground: 220 13% 13%;
+  
+  /* Primary - Deep Blue (Tech-forward, trustworthy) */
+  --color-primary: 217 91% 40%;
+  --color-primary-foreground: 0 0% 100%;
+  
+  /* Secondary - Cyan/Electric Blue (Innovation) */
+  --color-secondary: 190 87% 45%;
+  --color-secondary-foreground: 0 0% 100%;
+  
+  /* Accent - Neon Purple (Cutting-edge) */
+  --color-accent: 270 100% 55%;
+  --color-accent-foreground: 0 0% 100%;
+  
+  /* Muted - Light Gray */
+  --color-muted: 220 13% 91%;
+  --color-muted-foreground: 220 9% 46%;
+  
+  /* Destructive - Red */
+  --color-destructive: 0 84% 60%;
+  --color-destructive-foreground: 0 0% 100%;
+  
+  /* Success - Green */
+  --color-success: 142 71% 45%;
+  --color-success-foreground: 0 0% 100%;
+  
+  /* Warning - Amber */
+  --color-warning: 38 92% 50%;
+  --color-warning-foreground: 220 13% 13%;
+  
+  /* Border & Input */
+  --color-border: 220 13% 91%;
+  --color-input: 220 13% 96%;
+  --color-ring: 217 91% 40%;
+  
+  /* Typography */
+  --radius: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode colors */
+    --color-background: 220 13% 8%;
+    --color-foreground: 0 0% 98%;
+    
+    --color-card: 220 13% 12%;
+    --color-card-foreground: 0 0% 98%;
+    
+    /* Primary - Bright Blue */
+    --color-primary: 217 91% 50%;
+    --color-primary-foreground: 220 13% 8%;
+    
+    /* Secondary - Bright Cyan */
+    --color-secondary: 190 87% 50%;
+    --color-secondary-foreground: 220 13% 8%;
+    
+    /* Accent - Neon Purple */
+    --color-accent: 270 100% 60%;
+    --color-accent-foreground: 220 13% 8%;
+    
+    /* Muted - Dark Gray */
+    --color-muted: 220 13% 28%;
+    --color-muted-foreground: 220 9% 66%;
+    
+    /* Destructive */
+    --color-destructive: 0 84% 65%;
+    --color-destructive-foreground: 220 13% 8%;
+    
+    /* Success */
+    --color-success: 142 71% 50%;
+    --color-success-foreground: 220 13% 8%;
+    
+    /* Warning */
+    --color-warning: 38 92% 55%;
+    --color-warning-foreground: 220 13% 8%;
+    
+    /* Border & Input */
+    --color-border: 220 13% 20%;
+    --color-input: 220 13% 15%;
+    --color-ring: 217 91% 55%;
+  }
+}
+
+/* ============================================================================
+   TYPOGRAPHY SYSTEM
+   ============================================================================ */
+
+@layer base {
+  h1 {
+    @apply text-4xl font-bold tracking-tight text-balance;
+  }
+
+  h2 {
+    @apply text-3xl font-bold tracking-tight text-balance;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold tracking-tight text-balance;
+  }
+
+  h4 {
+    @apply text-xl font-semibold tracking-tight;
+  }
+
+  h5 {
+    @apply text-lg font-semibold tracking-tight;
+  }
+
+  h6 {
+    @apply text-base font-semibold tracking-tight;
+  }
+
+  p {
+    @apply text-base leading-relaxed;
+  }
+
+  small {
+    @apply text-sm;
+  }
+
+  code {
+    @apply bg-muted text-muted-foreground px-2 py-1 rounded text-sm font-mono;
+  }
+
+  a {
+    @apply text-primary hover:text-primary/80 transition-colors;
+  }
+}
+
+/* ============================================================================
+   COMPONENT BASE STYLES
+   ============================================================================ */
+
+@layer components {
+  /* Button base styles */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/80;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 active:bg-secondary/80;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90 active:bg-accent/80;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-muted text-foreground active:bg-muted/80;
+  }
+
+  .btn-outline {
+    @apply border border-border bg-background hover:bg-muted text-foreground;
+  }
+
+  .btn-destructive {
+    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90 active:bg-destructive/80;
+  }
+
+  /* Button sizes */
+  .btn-xs {
+    @apply h-7 px-2 text-xs;
+  }
+
+  .btn-sm {
+    @apply h-9 px-3 text-sm;
+  }
+
+  .btn-md {
+    @apply h-10 px-4 text-base;
+  }
+
+  .btn-lg {
+    @apply h-12 px-6 text-lg;
+  }
+
+  /* Input base styles */
+  .input-base {
+    @apply flex h-10 rounded-md border border-border bg-input px-3 py-2 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors;
+  }
+
+  /* Card styles */
+  .card {
+    @apply rounded-lg border border-border bg-card p-6 shadow-sm;
+  }
+
+  .card-header {
+    @apply pb-4 border-b border-border;
+  }
+
+  .card-title {
+    @apply text-2xl font-bold text-balance;
+  }
+
+  .card-description {
+    @apply text-sm text-muted-foreground mt-1;
+  }
+
+  .card-content {
+    @apply pt-4;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors;
+  }
+
+  .badge-primary {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .badge-secondary {
+    @apply bg-secondary/10 text-secondary;
+  }
+
+  .badge-accent {
+    @apply bg-accent/10 text-accent;
+  }
+
+  .badge-success {
+    @apply bg-success/10 text-success;
+  }
+
+  .badge-warning {
+    @apply bg-warning/10 text-warning;
+  }
+
+  .badge-destructive {
+    @apply bg-destructive/10 text-destructive;
+  }
+
+  /* Alert styles */
+  .alert {
+    @apply rounded-lg border px-4 py-3 text-sm;
+  }
+
+  .alert-info {
+    @apply border-primary/30 bg-primary/5 text-primary;
+  }
+
+  .alert-success {
+    @apply border-success/30 bg-success/5 text-success;
+  }
+
+  .alert-warning {
+    @apply border-warning/30 bg-warning/5 text-warning;
+  }
+
+  .alert-error {
+    @apply border-destructive/30 bg-destructive/5 text-destructive;
+  }
+
+  /* Section spacing */
+  .section {
+    @apply py-12 px-4 md:px-6;
+  }
+
+  .section-sm {
+    @apply py-6 px-4 md:px-6;
+  }
+
+  .section-lg {
+    @apply py-20 px-4 md:px-6;
+  }
+
+  /* Container layouts */
+  .container-max {
+    @apply mx-auto max-w-7xl;
+  }
+
+  .container-md {
+    @apply mx-auto max-w-4xl;
+  }
+
+  .container-sm {
+    @apply mx-auto max-w-2xl;
+  }
+
+  /* Grid utilities */
+  .grid-auto {
+    @apply grid auto-cols-fr gap-4;
+  }
+
+  .grid-2 {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+  }
+
+  .grid-3 {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  .grid-4 {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+  }
+
+  /* Flex utilities */
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  /* Text utilities */
+  .text-truncate {
+    @apply truncate;
+  }
+
+  .text-clamp-2 {
+    @apply line-clamp-2;
+  }
+
+  .text-clamp-3 {
+    @apply line-clamp-3;
+  }
+
+  /* Divider */
+  .divider {
+    @apply border-t border-border;
+  }
+}
+
+/* ============================================================================
+   ANIMATIONS & TRANSITIONS
+   ============================================================================ */
+
+@layer utilities {
+  .transition-all {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  .transition-colors {
+    @apply transition-colors duration-200 ease-in-out;
+  }
+
+  .transition-transform {
+    @apply transition-transform duration-200 ease-in-out;
+  }
+
+  .hover-lift {
+    @apply hover:shadow-lg hover:scale-105 transition-all;
+  }
+
+  .hover-dim {
+    @apply hover:opacity-75 transition-opacity;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+  }
 }
